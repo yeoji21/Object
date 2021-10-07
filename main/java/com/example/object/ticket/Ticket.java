@@ -1,2 +1,8 @@
-package com.example.object.ticket;public class Ticket {
+package com.example.object.ticket;
+
+import lombok.Getter;
+
+@Getter
+public class Ticket {
+    private Long fee;
 }

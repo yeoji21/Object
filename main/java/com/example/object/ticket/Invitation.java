@@ -1,2 +1,7 @@
-package com.example.object.ticket;public class Invitation {
+package com.example.object.ticket;
+
+import java.time.LocalDateTime;
+
+public class Invitation {
+    private LocalDateTime when;
 }
