@@ -8,11 +8,11 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 
-public abstract class DiscountPolicy {
+public abstract class DefaultDiscountPolicy implements DiscountPolicy {
 
     private List<DiscountCondition> conditions = new ArrayList<>();
 
-    public DiscountPolicy(List<DiscountCondition> conditions) {
+    public DefaultDiscountPolicy(List<DiscountCondition> conditions) {
         this.conditions = conditions;
     }
 

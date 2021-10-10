@@ -1,9 +1,8 @@
 package com.example.object.movieSystem;
 
 import java.util.Arrays;
-import java.util.List;
 
-public class AmountDiscountPolicy extends DiscountPolicy {
+public class AmountDiscountPolicy extends DefaultDiscountPolicy {
 
     private Money discountAmount;
 

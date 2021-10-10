@@ -13,8 +13,7 @@ public class Screening {
         this.whenScreened = whenScreened;
     }
 
-    public LocalDateTime
-    getStartTime() {
+    public LocalDateTime getStartTime() {
         return whenScreened;
     }
 

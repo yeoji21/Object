@@ -1,15 +1,9 @@
 package com.example.object.movieSystem;
 
-import java.util.List;
-
-public class NoneDiscountPolicy extends DiscountPolicy {
-
-    public NoneDiscountPolicy() {
-        super(null);
-    }
+public class NoneDiscountPolicy implements DiscountPolicy{
 
     @Override
-    protected Money getDiscountAmount(Screening screening) {
+    public Money calculateDiscountAmount(Screening screening) {
         return Money.ZERO;
     }
 }

@@ -1,9 +1,8 @@
 package com.example.object.movieSystem;
 
 import java.util.Arrays;
-import java.util.List;
 
-public class PercentDiscountPolicy extends DiscountPolicy{
+public class PercentDiscountPolicy extends DefaultDiscountPolicy {
 
     private double percent;
 
