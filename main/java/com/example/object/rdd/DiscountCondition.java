@@ -1,2 +1,7 @@
-package com.example.object.rdd;public class DiscountCondition {
+package com.example.object.rdd;
+
+import com.example.object.ddd.DiscountConditionType;
+
+public interface DiscountCondition {
+    public boolean isSatisfiedBy(Screening screening);
 }

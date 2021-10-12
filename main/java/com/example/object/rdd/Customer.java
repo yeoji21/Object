@@ -1,2 +1,4 @@
-package com.example.object.rdd;public class Customer {
+package com.example.object.rdd;
+
+public class Customer {
 }
