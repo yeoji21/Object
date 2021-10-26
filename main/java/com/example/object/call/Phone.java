@@ -1,29 +1,28 @@
 package com.example.object.call;
 
 import com.example.object.movieSystem.Money;
+import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public abstract class Phone {
+public class Phone {
 
-    private double taxRate;
+    private RatePolicy ratePolicy;
     private List<Call> calls = new ArrayList<>();
 
-    public Phone(double taxRate) {
-        this.taxRate = taxRate;
+    public Phone(RatePolicy ratePolicy) {
+        this.ratePolicy = ratePolicy;
+    }
+
+    public List<Call> getCalls() {
+        return Collections.unmodifiableList(calls);
     }
 
     public Money calculateFee() {
-        Money result = Money.ZERO;
-
-        for (Call call : calls) {
-            result = result.plus(calculateCallFee(call));
-        }
-        return result.plus(result.times(taxRate));
+        return ratePolicy.calculateFee(this);
     }
-
-    abstract protected Money calculateCallFee(Call call);
 
     public void call(Call call) {
         calls.add(call);
