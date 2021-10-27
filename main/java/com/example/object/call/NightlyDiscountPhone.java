@@ -18,7 +18,6 @@ public class NightlyDiscountPhone extends Phone {
         super(ratePolicy);
     }
 
-
     protected Money calculateCallFee(Call call) {
         if (call.getFrom().getHour() >= LATE_NIGHT_HOUR) {
             return nightlyAmount.times(call.getDuration().getSeconds() / seconds.getSeconds());

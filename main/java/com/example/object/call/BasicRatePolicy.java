@@ -11,6 +11,7 @@ public abstract class BasicRatePolicy implements RatePolicy {
         for (Call call : phone.getCalls()) {
             result = result.plus(calculateCallFee(call));
         }
+
         return result;
     }
 
