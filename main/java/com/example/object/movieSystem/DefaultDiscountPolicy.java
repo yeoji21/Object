@@ -2,6 +2,7 @@ package com.example.object.movieSystem;
 
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,8 @@ public abstract class DefaultDiscountPolicy implements DiscountPolicy {
 
     public Money calculateDiscountAmount(Screening screening) {
 //        conditions.stream().filter(c -> c.isSatisfiedBy(screening)).findFirst().ifPresent(getDiscountAmount(screening));
+
+        assert screening != null && screening.getStartTime().isAfter(LocalDateTime.now());
 
         for (DiscountCondition each : conditions) {
             if (each.isSatisfiedBy(screening)) {

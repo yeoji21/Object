@@ -12,7 +12,7 @@ class PhoneTest {
     void calcFee(){
         //given
 //        RegularPhone phone = new RegularPhone(Money.wons(5), Duration.ofSeconds(10));
-        Phone phone = new Phone(new RegularPolicy(Money.wons(5), Duration.ofSeconds(10)));
+        Phone phone = new Phone(new FixedFeePolicy(Money.wons(5), Duration.ofSeconds(10)));
 
         phone.call(new Call(LocalDateTime.of(2018,1,1,
                 12,10,0),
@@ -30,7 +30,7 @@ class PhoneTest {
     void multiPolicy(){
         //given
         Phone phone = new Phone(
-                new TaxablePolicy(new RegularPolicy(Money.wons(5), Duration.ofSeconds(10)),0.1)
+                new TaxablePolicy(new FixedFeePolicy(Money.wons(5), Duration.ofSeconds(10)),0.1)
         );
 
         //when
@@ -49,7 +49,7 @@ class PhoneTest {
         //given
         Phone phone = new Phone(
                 new TaxablePolicy(new RateDiscountPolicy(
-                        new RegularPolicy(Money.wons(5), Duration.ofSeconds(10)),Money.wons(10)
+                        new FixedFeePolicy(Money.wons(5), Duration.ofSeconds(10)),Money.wons(10)
                 ),0.1)
         );
 

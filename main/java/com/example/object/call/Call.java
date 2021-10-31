@@ -1,22 +1,33 @@
 package com.example.object.call;
 
+import lombok.Getter;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Getter
 public class Call {
-    private LocalDateTime from;
-    private LocalDateTime to;
+
+    private DateTimeInterval interval;
 
     public Call(LocalDateTime from, LocalDateTime to) {
-        this.from = from;
-        this.to = to;
+        interval = DateTimeInterval.of(from, to);
     }
 
     public Duration getDuration() {
-        return Duration.between(from, to);
+        return interval.duration();
     }
 
     public LocalDateTime getFrom() {
-        return from;
+        return interval.getFrom();
+    }
+
+    public LocalDateTime getTo() {
+        return interval.getTo();
+    }
+
+    public List<DateTimeInterval> splitByDay() {
+        return interval.splitByDay();
     }
 }
