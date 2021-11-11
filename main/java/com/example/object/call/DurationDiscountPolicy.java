@@ -9,7 +9,6 @@ public class DurationDiscountPolicy extends BasicRatePolicy {
 
     private List<DurationDiscountRule> rules = new ArrayList<>();
 
-    @Override
     protected Money calculateCallFee(Call call) {
         Money result = Money.ZERO;
         for (DurationDiscountRule rule : rules) {
