@@ -1,13 +1,11 @@
-package com.baek.expense;
+package com.baek.expensereport;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.baek.expense.Expense.*;
-import static com.baek.expense.Expense.Type.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ExpenseReportTest {
+class ExpenseReporterTest {
     private ExpenseReporter report = new ExpenseReporter();
     private MockReportPrinter printer = new MockReportPrinter();
 
@@ -30,7 +28,7 @@ public class ExpenseReportTest {
 
     @Test
     public void printOneDinner(){
-        report.addExpense(new Expense(DINNER, 1678));
+        report.addExpense(new DinnerExpense(1678));
         report.printReport(printer);
 
         assertThat("Expenses 9/12/2002\n" +
@@ -42,8 +40,8 @@ public class ExpenseReportTest {
 
     @Test
     public void twoMeals() throws Exception{
-        report.addExpense(new Expense(DINNER, 1000));
-        report.addExpense(new Expense(BREAKFAST, 500));
+        report.addExpense(new DinnerExpense(1000));
+        report.addExpense(new BreakfastExpense(500));
         report.printReport(printer);
 
         assertThat("Expenses 9/12/2002\n" +
@@ -57,9 +55,9 @@ public class ExpenseReportTest {
 
     @Test
     public void twoMealsAndCarRental() throws Exception{
-        report.addExpense(new Expense(DINNER, 1000));
-        report.addExpense(new Expense(BREAKFAST, 500));
-        report.addExpense(new Expense(CAR_RENTAL, 50000));
+        report.addExpense(new DinnerExpense(1000));
+        report.addExpense(new BreakfastExpense(500));
+        report.addExpense(new CarRentalExpense(50000));
         report.printReport(printer);
 
         assertThat("Expenses 9/12/2002\n" +
@@ -73,10 +71,10 @@ public class ExpenseReportTest {
 
     @Test
     public void overages(){
-        report.addExpense(new Expense(BREAKFAST, 1000));
-        report.addExpense(new Expense(BREAKFAST, 1001));
-        report.addExpense(new Expense(DINNER, 5000));
-        report.addExpense(new Expense(DINNER, 5001));
+        report.addExpense(new BreakfastExpense(1000));
+        report.addExpense(new BreakfastExpense(1001));
+        report.addExpense(new DinnerExpense(5000));
+        report.addExpense(new DinnerExpense(5001));
         report.printReport(printer);
 
         assertThat("Expenses 9/12/2002\n" +

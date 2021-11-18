@@ -1,4 +1,4 @@
-package com.baek.expense;
+package com.baek.expensereport;
 
 public interface ReportPrinter {
     public void print(String text);

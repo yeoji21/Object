@@ -1,9 +1,6 @@
-package com.baek.expense;
+package com.baek.expensereport;
 
-
-
-public class MockReportPrinter implements ReportPrinter{
-
+public class MockReportPrinter implements ReportPrinter {
     private String printedText = "";
 
     @Override
@@ -11,7 +8,7 @@ public class MockReportPrinter implements ReportPrinter{
         printedText += text;
     }
 
-    public String getText() {
+    public String getText(){
         return printedText;
     }
 }

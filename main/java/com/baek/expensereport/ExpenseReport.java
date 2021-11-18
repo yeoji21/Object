@@ -1,24 +1,22 @@
-package com.baek.beforeexpense;
+package com.baek.expensereport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ExpenseReport {
     List<Expense> expenses = new ArrayList<Expense>();
-    int total;
-    int mealExpenses;
+    int mealExpenses = 0;
+    int total = 0;
 
     public ExpenseReport() {
     }
 
-    void totalUpExpenses() {
-        for (Expense expense : expenses) {
-            addTotals(expense);
-        }
+    void totalsUpExpenses() {
+        for (Expense expense : expenses)
+            totalUpExpense(expense);
     }
 
-    void addTotals(Expense expense) {
+    void totalUpExpense(Expense expense) {
         if (expense.isMeal())
             mealExpenses += expense.amount;
         total += expense.amount;
