@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class MyCalcTest {
 
     @Test
-    public void test() {
+    public void basic_calculation_test() {
         assertCalculate("", 0);
         assertCalculate("1", 1);
         assertCalculate("2", 2);
@@ -35,10 +35,33 @@ public class MyCalcTest {
     public void priority_expression(){
         assertCalculate("2+3*4",14);
         assertCalculate("10/2+4*4",21);
-        assertCalculate("45+3*5-2+5/2*7",72);
     }
 
-    private void assertCalculate(String expression, int expected) {
+    @Test
+    public void convert_negative_number_at_the_front(){
+        assertThat(invertMinus("-1+3")).isEqualTo("0-1+3");
+    }
+
+    @Test
+    public void expressionInitiallyHasNegativeNumber(){
+        assertCalculate("-1+3",2);
+        assertCalculate("-10*2+3",-17);
+    }
+
+    @Test
+    public void change_return_value_to_double() {
+        assertCalculate("10/3",3.33);
+        assertCalculate("45+3*5-2+5/2*7", 75.5);
+        assertCalculate("75.5-10", 65.5);
+    }
+
+    private String invertMinus(String origin) {
+        if (origin.charAt(0)=='-')
+            origin = origin.replaceFirst("[-]", "0-");
+        return origin;
+    }
+
+    private void assertCalculate(String expression, double expected) {
         assertThat(new MyCalc(expression).calculate()).isEqualTo(expected);
     }
 }

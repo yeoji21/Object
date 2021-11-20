@@ -1,5 +1,7 @@
 package com.baek.calculator;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,26 +9,23 @@ import java.util.stream.Collectors;
 
 public class MyCalc {
     private List<String> operators;
-    private List<Integer> splitNumber;
+    private List<Double> numbers;
     private String expression;
 
     public MyCalc(String expression) {
-        this.expression = expression;
+        this.expression = expression.trim();
     }
 
-    public int calculate() {
+    public double calculate() {
         if (expression.isEmpty())
             return 0;
-        if (isNotContainOperation())
+        if (isNotContainOperator())
             return Integer.parseInt(expression);
 
-        splitNumberAndOperatorToList();
-        while (operatorListNotEmpty()) {
-            if (hasMultipleOrDivideOperator())
-                calculateMultipleAndDivide();
-            else
-                calculatePlusAndMinus();
-        }
+        DivideNumbersAndOperatorsIntoLists();
+        for(;hasMultipleOrDivideOperator();calculateMultipleAndDivide());
+        for(;operatorListNotEmpty();calculatePlusAndMinus());
+
         return getResultValue();
     }
 
@@ -48,33 +47,40 @@ public class MyCalc {
         return !operators.isEmpty();
     }
 
-    private void splitNumberAndOperatorToList() {
+    private void DivideNumbersAndOperatorsIntoLists() {
         operators = getOperatorList();
-        splitNumber = getSplitNumberList();
+        numbers = getNumberList();
     }
 
     private int getIndexOfFindOperator(String o) {
         return operators.indexOf(o);
     }
 
-    private Integer getResultValue() {
-        return splitNumber.get(0);
+    private Double getResultValue() {
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        return Double.valueOf(formatter.format(numbers.get(0)));
     }
 
-    private boolean isNotContainOperation() {
+    private boolean isNotContainOperator() {
         return !expression.contains("+") && !expression.contains("-") && !expression.contains("*") && !expression.contains("/");
     }
 
     private List<String> getOperatorList() {
-        String operatorString = expression.replaceAll("\\d", "");
+        String operatorString = expression.replaceAll("[.\\d]", "");
         List<String> operators = new ArrayList<>();
         for (int i = 0; i < operatorString.length(); i++)
             operators.add(String.valueOf(operatorString.charAt(i)));
         return operators;
     }
 
-    private List<Integer> getSplitNumberList() {
-        return Arrays.stream(expression.split("\\D")).map(Integer::parseInt).collect(Collectors.toList());
+    private List<Double> getNumberList() {
+        convertNegativeNumberAtTheFront();
+        return Arrays.stream(expression.split("[^.\\d]")).map(Double::parseDouble).collect(Collectors.toList());
+    }
+
+    private void convertNegativeNumberAtTheFront() {
+        if (expression.charAt(0)=='-')
+            expression = expression.replaceFirst("[-]", "0-");
     }
 
     private boolean hasMultipleOrDivideOperator() {
@@ -85,30 +91,30 @@ public class MyCalc {
         return operators.stream().filter(o -> o.equals(first) || o.equals(second)).findFirst().orElse(null);
     }
 
-    private int getMultipleValue() {
+    private double getMultipleValue() {
         int index = getIndexOfFindOperator("*");
-        return splitNumber.get(index) * splitNumber.get(index + 1);
+        return numbers.get(index) * numbers.get(index + 1);
     }
 
-    private void applyResultToLists(int index, int resultValue) {
-        splitNumber.add(index, resultValue);
-        splitNumber.remove(index + 1);
-        splitNumber.remove(index + 1);
+    private void applyResultToLists(int index, double resultValue) {
+        numbers.add(index, resultValue);
+        numbers.remove(index + 1);
+        numbers.remove(index + 1);
         operators.remove(index);
     }
 
-    private int getDivideValue() {
+    private double getDivideValue() {
         int index = getIndexOfFindOperator("/");
-        if (splitNumber.get(index + 1)==0)
+        if (numbers.get(index + 1)==0)
             throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
-        return splitNumber.get(index) / splitNumber.get(index + 1);
+        return numbers.get(index) / numbers.get(index + 1);
     }
 
-    private int getPlusValue() {
-        return splitNumber.get(getIndexOfFindOperator("+")) + splitNumber.get(getIndexOfFindOperator("+") + 1);
+    private double getPlusValue() {
+        return numbers.get(getIndexOfFindOperator("+")) + numbers.get(getIndexOfFindOperator("+") + 1);
     }
 
-    private int getMinusValue() {
-        return splitNumber.get(getIndexOfFindOperator("-")) - splitNumber.get(getIndexOfFindOperator("-") + 1);
+    private double getMinusValue() {
+        return numbers.get(getIndexOfFindOperator("-")) - numbers.get(getIndexOfFindOperator("-") + 1);
     }
 }
