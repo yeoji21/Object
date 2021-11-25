@@ -17,11 +17,18 @@ public class MyCalc {
     }
 
     public double calculate() {
+        double result;
         if (expression.isEmpty())
-            return 0;
-        if (isNotContainOperator())
-            return Integer.parseInt(expression);
+            result = 0;
+        else if (isNotContainOperator())
+            result = Integer.parseInt(expression);
+        else
+            result = runCalculation();
 
+        return result;
+    }
+
+    private double runCalculation() {
         DivideNumbersAndOperatorsIntoLists();
         for(;hasMultipleOrDivideOperator();calculateMultipleAndDivide());
         for(;operatorListNotEmpty();calculatePlusAndMinus());
@@ -105,9 +112,13 @@ public class MyCalc {
 
     private double getDivideValue() {
         int index = getIndexOfFindOperator("/");
-        if (numbers.get(index + 1)==0)
-            throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
+        divideByZero(index);
         return numbers.get(index) / numbers.get(index + 1);
+    }
+
+    private void divideByZero(int index) {
+        if (numbers.get(index + 1)==0 )
+            throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
     }
 
     private double getPlusValue() {

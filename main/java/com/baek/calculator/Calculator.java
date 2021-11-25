@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Calculator extends JFrame{
-    MyCalc myCalc;
     JPanel panel = new JPanel();
     JButton bt[] = new JButton[19];
     JButton calc = new JButton("=");
@@ -57,8 +56,7 @@ public class Calculator extends JFrame{
     }
     class CalcActionListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
-            myCalc = new MyCalc(exp.getText());
-            double result = myCalc.calculate();
+            double result = new MyCalc(exp.getText()).calculate();
             results.setText(Double.toString(result));
             exp.setText(Double.toString(result));
         }
