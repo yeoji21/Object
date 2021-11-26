@@ -1,4 +1,4 @@
-package com.choi;
+package com.choi.card;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.choi;
+package com.choi.card;
 
 public class CardValidityChecker {
     public boolean checkValidity(String cardNum) {

@@ -1,4 +1,4 @@
-package com.choi.me;
+package com.choi.card;
 
 import org.junit.jupiter.api.Test;
 

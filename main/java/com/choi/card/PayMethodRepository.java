@@ -1,4 +1,4 @@
-package com.choi;
+package com.choi.card;
 
 public interface PayMethodRepository {
     void save(PayMethod payMethod);
