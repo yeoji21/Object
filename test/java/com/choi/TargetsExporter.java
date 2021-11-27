@@ -7,7 +7,6 @@ public class TargetsExporter {
     private Targets targets;
 
     public void export(Path path, Targets targets) {
-
         this.path = path;
         this.targets = targets;
     }

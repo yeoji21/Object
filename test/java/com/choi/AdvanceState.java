@@ -1,5 +1,5 @@
 package com.choi;
 
 public enum AdvanceState {
-    COMPLETED, GENERATING
+    COMPLETED, APPLY_FAILED, GENERATING
 }
