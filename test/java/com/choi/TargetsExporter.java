@@ -1,13 +1,21 @@
 package com.choi;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class TargetsExporter {
-    private Path path;
-    private Targets targets;
-
     public void export(Path path, Targets targets) {
-        this.path = path;
-        this.targets = targets;
+        try(BufferedWriter bw = Files.newBufferedWriter(path)){
+            List<User> users = targets.getUsers();
+            for (User user : users) {
+                bw.write(user.getId() + "=" + user.getGrade());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            new RuntimeException(e);
+        }
     }
 }

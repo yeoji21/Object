@@ -98,7 +98,7 @@ public class GradeAdvanceStateTest {
     @Test
     void advance_call_when_status_is_applyFailed(){
         states.set(AdvanceState.APPLY_FAILED);
-        Targets targets = new Targets();
+        Targets targets = new Targets(null);
         given(mockImporter.importTargets(any(Path.class))).willReturn(targets);
 
         service.advance();

@@ -2,6 +2,7 @@ package com.choi;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class MillListTest {
     @Test
     void name(){
         System.out.println("before ->" + Runtime.getRuntime().freeMemory()/1024/1024);
-        List<User> users = new LinkedList<>();
+        List<User> users = new ArrayList<>();
         for (int i = 0; i < 150_0000; i++) {
             users.add(new User(i, 0));
         }
