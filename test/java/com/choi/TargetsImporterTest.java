@@ -29,7 +29,7 @@ public class TargetsImporterTest {
     }
 
     @Test
-    void importTargets_given_FileExists() throws IOException {
+    void importTargets_given_fileExists() throws IOException {
         Path path = Paths.get("/Users/yeojiwon/Desktop/Spring Project/object/src/main/resources/tfile");
         FileCopyUtils.copy("105=5\n106=6", new FileWriter(path.toFile()));
         Targets targets = importer.importTargets(path);
@@ -37,5 +37,14 @@ public class TargetsImporterTest {
         assertThat(users).hasSize(2);
         assertThat(users.get(0)).isEqualTo(new User(105, 5));
         assertThat(users.get(1)).isEqualTo(new User(106, 6));
+    }
+
+    @Test
+    void importTargets_given_fileIsEmpty() throws IOException {
+        Path path = Paths.get("/Users/yeojiwon/Desktop/Spring Project/object/src/main/resources/emptyfile");
+        FileCopyUtils.copy("", new FileWriter(path.toFile()));
+        Targets targets = importer.importTargets(path);
+        List<User> users = targets.getUsers();
+        assertThat(users).isEmpty();
     }
 }

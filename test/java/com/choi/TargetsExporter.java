@@ -1,11 +1,14 @@
 package com.choi;
 
+import org.springframework.stereotype.Service;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+@Service
 public class TargetsExporter {
     public void export(Path path, Targets targets) {
         try(BufferedWriter bw = Files.newBufferedWriter(path)){

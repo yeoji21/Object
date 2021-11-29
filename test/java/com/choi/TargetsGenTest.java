@@ -3,15 +3,15 @@ package com.choi;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class TargetsGenTest {
-
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private GivenAssertHelper givenAssertHelper;
+    @Autowired
+    private TargetGen targetGen;
 
     @Test
     void gen(){
@@ -21,7 +21,7 @@ public class TargetsGenTest {
         givenStu(102, 2);
         givenStu(103, 3);
 
-        TargetGen targetGen = new TargetGen(jdbcTemplate);
+//        TargetGen targetGen = new TargetGen(jdbcTemplate);
         Targets targets = targetGen.gen();
 
         assertThat(targets.getUsers()).hasSize(3);
@@ -31,10 +31,11 @@ public class TargetsGenTest {
     }
 
     private void clearStu() {
-        jdbcTemplate.update("truncate table stuinfo");
+        givenAssertHelper.clearStu();
     }
 
-    private void givenStu(int id, int grade) {
-        jdbcTemplate.update("insert into stuinfo values(?, ?)", id, grade);
+    private void givenStu(int id, int grade)
+    {
+        givenAssertHelper.givenStu(id, grade);
     }
 }
