@@ -107,4 +107,14 @@ public class GradeAdvanceServiceTest {
         then(mockExporter).shouldHaveNoInteractions();
         then(mockApplier).should().apply(eq(targets));
     }
+
+    @Test
+    void importFailed(){
+        states.set(AdvanceState.APPLY_FAILED);
+        Targets targets = new Targets(null);
+        given(mockImporter.importTargets(any(Path.class))).willThrow(new RuntimeException("!"));
+
+        AdvanceResult result = service.advance();
+        assertThat(result).isEqualTo(AdvanceResult.TARGET_IMPORT_FAILED);
+    }
 }
