@@ -1,4 +1,5 @@
-package com.toby;
+package com.toby.calc;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,8 +37,7 @@ public class Calculator {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(filePath));
-            int sum = callback.doSomethingWithReader(br);
-            return sum;
+            return callback.doSomethingWithReader(br);
         } catch (IOException e) {
             log.warn(e.getMessage());
             throw e;

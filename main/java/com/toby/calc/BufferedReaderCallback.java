@@ -1,4 +1,4 @@
-package com.toby;
+package com.toby.calc;
 
 import java.io.BufferedReader;
 import java.io.IOException;
